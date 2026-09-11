@@ -1,0 +1,99 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define E 0.00001
+int n;
+vector<double> arr;
+map<double, int> mp;
+
+double f(double x)
+{
+    double ans = 0;
+
+    for (int i=0; i<n; i++) {
+        ans += arr[i]*pow(x, n-i-1);
+    }
+
+    return ans;
+}
+
+double fp(double x)
+{
+    double ans = 0;
+
+    for (int i=0; i<n-1; i++) {
+        ans += (n-i-1)*arr[i]*pow(x, n-i-2);
+    }
+
+    return ans;
+}
+
+void newton(double x0)
+{
+
+    double x1;
+    int count = 0;
+    int maxIt = 100;
+
+    while (maxIt--) {
+        count++;
+        //cout << "Iteration : " << count << endl;
+        //cout << f(x0) << " " << f(x1) << endl;
+        if (fp(x0)!=0)
+        x1 = x0-(f(x0)/fp(x0));
+
+        if (abs(x1-x0)<E and abs(f(x1))<E) {
+            break;
+        }
+
+        x0 = x1;
+    }
+
+    x1 = round(x1*1000)/1000;
+    if (x1==-0.0) x1 = 0.0;
+
+    mp[x1]++;
+
+    if (mp[x1]<=1) {
+        cout << "Root : " << x1 << endl;
+        cout << "Iteration : " << count << endl;
+        cout << endl;
+    }
+}
+
+double xmaxx()
+{
+    double ans = 0;
+
+    for (int i=1; i<n; i++) {
+        ans = max(ans, abs((double)arr[i]/arr[0]));
+    }
+    ans++;
+    return ans;
+}
+
+int main()
+{
+    cin >> n;
+    n++;
+
+    for (int i=0; i<n; i++) {
+        double x;
+        cin >> x;
+
+        arr.push_back(x);
+    }
+
+
+    double xmax = xmaxx();
+    double x0 = -xmax;
+    double x1 = -xmax+0.5;
+
+    while (x1<=xmax) {
+
+            newton(x0);
+            x0 = x1;
+            x1 += 0.5;
+
+
+    }
+}
