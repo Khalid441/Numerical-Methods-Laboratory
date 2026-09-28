@@ -8,9 +8,7 @@ double fact(int n){
 }
 
 int main(){
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-    
+
     cout<<"Enter num of data points: ";
     int n; cin>>n;
 
