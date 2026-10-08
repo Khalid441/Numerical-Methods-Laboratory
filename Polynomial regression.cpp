@@ -10,7 +10,7 @@ int main() {
     double xn;
     cin >> xn;
 
-    // ১. matrix
+    // matrix
     double A[20][21] = {};
     for (int j = 0; j < m; j++) {
         for (int k = 0; k < m; k++)
@@ -20,7 +20,7 @@ int main() {
             A[j][m] += pow(x[i], j) * y[i];
     }
 
-    // ২. Gauss elimination
+    //  Gauss elimination
     for (int c = 0; c < m; c++) {
         int p = c;
         for (int r = c + 1; r < m; r++)
@@ -34,7 +34,7 @@ int main() {
         }
     }
 
-    // ৩. Back substitution
+    //  Back substitution
     double a[20];
     for (int i = m - 1; i >= 0; i--) {
         double s = A[i][m];
@@ -42,7 +42,7 @@ int main() {
         a[i] = s / A[i][i];
     }
 
-    // ৪. Print
+    // Print
     cout << "f(x) = ";
     for (int i = 0; i < m; i++) {
         if (i > 0 && a[i] >= 0) cout << "+";
